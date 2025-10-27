@@ -12,3 +12,6 @@ robustness after applying the fixes?
 2) Yes pylint detected the global variable "stock_data = {}" however this was not a problem.
 3) I would run the tools (Pylint, Bandit, Flake8) locally before committing code and integrate them into your Continuous Integration  pipeline to automatically check quality before allowing a code merge.
 4) The code now looks more readible , more understandable and more pleasing to look at, quality has increased as indicated by the pylint score , it is more robust after fixing the mutable default argument was handled , the evaluation error was handled and no bare except clause was handled using KeyError this makes it less unpredictable and more easier to work with.
+
+
+
