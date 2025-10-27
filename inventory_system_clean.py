@@ -1,3 +1,10 @@
+"""
+Inventory management system module.
+
+Provides functions for adding, removing, saving, and loading stock items,
+as well as checking for low stock thresholds.
+"""
+
 import json
 # remove unusable import logging
 from datetime import datetime
@@ -62,9 +69,10 @@ def load_data(file="inventory.json"):
         file (str): The filename to load data from.
             Defaults to 'inventory.json'.
     """
-    global stock_data
-    with open(file, "r", encoding="utf-8") as f:
-        stock_data = json.load(f)
+    with open(file, "r", encoding="utf-8") as file_handle:
+        data = json.load(file_handle)
+    stock_data.clear()
+    stock_data.update(data)
 
 
 def save_data(file="inventory.json"):
@@ -75,8 +83,8 @@ def save_data(file="inventory.json"):
         file (str): The filename to save data to.
             Defaults to 'inventory.json'.
     """
-    with open(file, "w", encoding="utf-8") as f:
-        json.dump(stock_data, f, indent=4)
+    with open(file, "w", encoding="utf-8") as file_handle:
+        json.dump(stock_data, file_handle, indent=4)
 
 
 def print_data():
@@ -84,8 +92,8 @@ def print_data():
     Prints a report of all items and their quantities.
     """
     print("Items Report")
-    for i, qty in stock_data.items():
-        print(f"{i} -> {qty}")
+    for item, qty in stock_data.items():
+        print(f"{item} -> {qty}")
 
 
 def check_low_items(threshold=5):
@@ -100,9 +108,9 @@ def check_low_items(threshold=5):
         list: A list of items with quantities below the threshold.
     """
     result = []
-    for i, qty in stock_data.items():
+    for item, qty in stock_data.items():
         if qty < threshold:
-            result.append(i)
+            result.append(item)
     return result
 
 
@@ -125,4 +133,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
